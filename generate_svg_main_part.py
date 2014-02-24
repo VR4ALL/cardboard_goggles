@@ -5,8 +5,34 @@
 import create_xml_guides
 import svgwrite
 
+# The GuideList Class has the responsability to manage a list of Guide position
+class GuideList(object):
+    def __init__(self, vertical_relative_list, horizontal_relative_list):
+        self.relative_vertical_list = vertical_relative_list;
+        self.relative_horizontal_list = horizontal_relative_list;
+        self.absolute_vertical_list = self.calculate_absolute(vertical_relative_list);
+        self.absolute_horizontal_list = self.calculate_absolute(horizontal_relative_list);
+
+    def calculate_absolute(self, relative_list):
+        last_position = 0;
+        absolute_position_list = [];
+        for relative_position in relative_list:
+            absolute_position = last_position + relative_position;
+            absolute_position_list.append(absolute_position);
+            last_position = absolute_position;
+        return absolute_position_list;
+
+    def get_coordinate(self, vertical_guide_number, horizontal_guide_number):
+        return (self.absolute_vertical_list[vertical_guide_number],
+                self.absolute_horizontal_list[horizontal_guide_number]);
+
+    def print_absolute_lists(self):
+        print "vertical list: ", self.absolute_vertical_list;
+        print "horizontal list: ", self.absolute_horizontal_list;
+
+
 class LazerCutDrawing(object):
-    def __init__(self):
+    def __init__(self, filename):
         self.canvas_width = 600;
         self.canvas_heigh = 300;
 
@@ -18,7 +44,7 @@ class LazerCutDrawing(object):
         self.draw_width = 0.03;
         self.engrave_color = svgwrite.rgb(0, 0, 255, '%');
 
-        self.dwg = svgwrite.Drawing('goggle.svg',
+        self.dwg = svgwrite.Drawing(filename,
                 size=('%dmm'%self.canvas_width,
                         '%dmm'%self.canvas_heigh),
                 viewBox=('0 0 %d %d')%(
@@ -82,6 +108,23 @@ class LazerCutDrawing(object):
                 last_vertical_position = absolute_vertical_position;
             last_horizontal_position = absolute_horizontal_position;
 
+    def add_guides(self, guides):
+        last_vertical_position = 0;
+        for vertical_position in guides.absolute_vertical_list:
+            for horizontal_position in guides.absolute_horizontal_list:
+                self.add_horizontal_guide(horizontal_position,
+                                            last_vertical_position,
+                                            vertical_position);
+            last_vertical_position = vertical_position;
+
+        last_horizontal_position = 0;
+        for horizontal_position in guides.absolute_horizontal_list:
+            for vertical_position in guides.absolute_vertical_list:
+                self.add_vertical_guide(vertical_position,
+                                            last_horizontal_position,
+                                            horizontal_position);
+            last_horizontal_position = horizontal_position;
+
     def add_horizontal_hole(self, x, y, length, thickness):
         self.dwg.add(self.dwg.rect(
                 insert=(x, y),
@@ -138,22 +181,12 @@ dwg.add(dwg.text('Telep[OO]rt',
 
 
 if __name__ == '__main__':
-    print "script to create goggle main part is running"
     thickness = 3;  # cardboard thinkness
     height = 75;  # height of the goggles and the phone
     width = 135;  # width of the goggles and the phone
     focal = 40;  # focal distance : distance between the lenses and the screen
     depth = 40;  # depth of the goggles.
     phone_depth = 7;
-
-    horizontal_guide_list = [ 10,  # margin
-                            40,  # rabat
-                            thickness,  # consumed by the folding
-                            height + thickness,
-                            thickness,  # consumed by the folding
-                            phone_depth,
-                            focal/2, focal/2,
-                            depth];
 
     vertical_guide_list = [ 10,  # margin
                             height - thickness,
@@ -166,22 +199,25 @@ if __name__ == '__main__':
                             thickness,  # consumed by the folding
                             height];
 
+    horizontal_guide_list = [ 10,  # margin
+                            40,  # rabat
+                            thickness,  # consumed by the folding
+                            height + thickness,
+                            thickness,  # consumed by the folding
+                            phone_depth,
+                            focal/2, focal/2,
+                            depth];
 
-    g = LazerCutDrawing();
-    g.add_guide_list(vertical_guide_list, horizontal_guide_list);
-
+    guides = GuideList(vertical_guide_list, horizontal_guide_list);
+    guides.print_absolute_lists();
+    g = LazerCutDrawing('goggle.svg');
+    #g.add_guide_list(vertical_guide_list, horizontal_guide_list);
+    g.add_guides(guides);
     g.add_horizontal_hole(100, 100, 200, thickness);
     g.add_horizontal_hole(100, 300, 200, thickness);
     g.save();
 
-
-    vertical_list = [ 0, height,
-                      thickness/2, thickness/2, width/2, width/2,
-                      thickness/2, thickness/2, height,
-                      thickness/2, thickness/2, width/2, width/2,
-                      thickness/2, thickness/2, height];
-
-    print "script done"
+    print "goggle.svg created or updated"
 
 
 
