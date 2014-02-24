@@ -83,31 +83,6 @@ class LazerCutDrawing(object):
             self.add_vertical_guide(absolute_position);
             last_position = absolute_position;
 
-    def add_guide_list(self, vertical_list, horizontal_list):
-        last_vertical_position = 0;
-        for relative_vertical_position in vertical_list:
-            absolute_vertical_position = last_vertical_position + relative_vertical_position;
-            last_horizontal_position = 0;
-            for relative_horizontal_position in horizontal_list:
-                absolute_horizontal_position = last_horizontal_position + relative_horizontal_position;
-                self.add_horizontal_guide(absolute_horizontal_position,
-                                            last_vertical_position,
-                                            absolute_vertical_position);
-                last_horizontal_position = absolute_horizontal_position;
-            last_vertical_position = absolute_vertical_position;
-
-        last_horizontal_position = 0;
-        for relative_horizontal_position in horizontal_list:
-            absolute_horizontal_position = last_horizontal_position + relative_horizontal_position;
-            last_vertical_position = 0;
-            for relative_vertical_position in vertical_list:
-                absolute_vertical_position = last_vertical_position + relative_vertical_position;
-                self.add_vertical_guide(absolute_vertical_position,
-                                            last_horizontal_position,
-                                            absolute_horizontal_position);
-                last_vertical_position = absolute_vertical_position;
-            last_horizontal_position = absolute_horizontal_position;
-
     def add_guides(self, guides):
         last_vertical_position = 0;
         for vertical_position in guides.absolute_vertical_list:
@@ -135,6 +110,25 @@ class LazerCutDrawing(object):
                 fill='white',
                 stroke_width=self.cut_width));
 
+    def add_horizontal_hole_guide(self,
+            guide,
+            vertical,
+            horizontal,
+            position,
+            length,
+            thickness):
+
+        (x, y) =  guides.get_coordinate(vertical, horizontal);
+        x = x + position;
+        self.dwg.add(self.dwg.rect(
+                insert=(x, y),
+                size=(length, thickness),
+                rx=None, 
+                ry=None,
+                stroke=self.cut_color,
+                fill='white',
+                stroke_width=self.cut_width));
+
     def add_vertical_hole(self, x, y, length, thickness):
         self.dwg.add(self.dwg.rect(
                 insert=(x, y),
@@ -149,13 +143,41 @@ class LazerCutDrawing(object):
         self.dwg.add(self.dwg.line(
                 (x1, y1),
                 (x2, y2),
-                stroke=cut_color));
+                stroke=self.cut_color,
+                stroke_width=self.cut_width));
+
+    def add_cut_vertical_line(self,
+            guides,
+            vertical,
+            horizontal_start,
+            horizontal_stop):
+        start = guides.get_coordinate(vertical, horizontal_start);
+        stop = guides.get_coordinate(vertical, horizontal_stop);
+        self.dwg.add(self.dwg.line(
+                start,
+                stop,
+                stroke=self.cut_color,
+                stroke_width=self.cut_width));
+
+    def add_cut_horizontal_line(self,
+            guides,
+            horizontal,
+            vertical_start,
+            vertical_stop):
+        start = guides.get_coordinate(vertical_start, horizontal);
+        stop = guides.get_coordinate(vertical_stop, horizontal);
+        self.dwg.add(self.dwg.line(
+                start,
+                stop,
+                stroke=self.cut_color,
+                stroke_width=self.cut_width));
 
     def add_fold_line(self, x1, y1, x2, y2):
         self.dwg.add(self.dwg.line(
                 (x1, y1),
                 (x2, y2),
-                stroke=fold_color));
+                stroke=self.fold_color,
+                stroke_width=self.fold_width));
 
     def save(self):
         self.dwg.save();
@@ -211,9 +233,29 @@ if __name__ == '__main__':
     guides = GuideList(vertical_guide_list, horizontal_guide_list);
     guides.print_absolute_lists();
     g = LazerCutDrawing('goggle.svg');
-    #g.add_guide_list(vertical_guide_list, horizontal_guide_list);
     g.add_guides(guides);
-    g.add_horizontal_hole(100, 100, 200, thickness);
+
+    h_base = 8;
+    h_contour = 5;
+    h_top = 0;
+    h_lens = 6;  # lenses plane
+
+    v_base = 0;
+    v_left = 2;
+    v_rigth = 4;
+    v_last = 11;
+
+    g.add_cut_vertical_line(guides, v_base, h_contour, h_base);
+    g.add_cut_vertical_line(guides, v_left, h_contour, h_top);
+    g.add_cut_vertical_line(guides, v_rigth, h_contour, h_top);
+    g.add_cut_vertical_line(guides, v_last, h_contour, h_base);
+
+    g.add_cut_horizontal_line(guides, h_base, v_base, v_left);
+    g.add_cut_horizontal_line(guides, h_contour, v_base, v_left);
+    g.add_cut_horizontal_line(guides, h_top, v_left, v_rigth);
+    g.add_cut_horizontal_line(guides, h_contour, v_rigth, v_last);
+
+    g.add_horizontal_hole_guide(guides, v_base, h_lens, 20, 20, thickness);
     g.add_horizontal_hole(100, 300, 200, thickness);
     g.save();
 
