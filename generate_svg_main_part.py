@@ -41,9 +41,11 @@ guide_draw = lazercad.GuidesDraw(drawing, guides);
 guide_draw.draw_guides();
 # define some helpers const to ease the reding of the code.
 h_base = 10;  # horizontal guide number of the base
-h_contour = 7;  # horizontal guide number
-h_top = 0;  # horizontal guide number
 h_lens = 9;  # horizontal guide number of the lenses plane
+h_contour = 7;  # horizontal guide number
+h_fold_1 = 5;  # horizontal guide number
+h_fold_2 = 2; # horizontal guide number
+h_top = 0;  # horizontal guide number
 v_base = 0;  # vertical guide number
 v_left = 3;  # vertical guide number
 v_right = 5;  # vertical guide number
@@ -75,6 +77,9 @@ guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top+1, v_right_top, 20, 
 guide_draw.draw_horizontal_centered_hole(h_lens, v_right_top, v_last, 20, thickness);
 guide_draw.draw_vertical_centered_hole(v_left+1, h_contour, h_contour+1, 10, thickness);
 guide_draw.draw_vertical_centered_hole(v_left_top+1, h_contour, h_contour+2, 20, thickness);
+# draw the horizontal folding lines
+guide_draw.draw_horizontal_fold_line(h_fold_1,  v_left, v_right);
+guide_draw.draw_horizontal_fold_line(h_fold_2,  v_left, v_right);
 # save the drawing as SVG
 drawing.save();
 print "goggle.svg created or updated"

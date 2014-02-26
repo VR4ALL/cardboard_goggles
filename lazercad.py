@@ -133,6 +133,30 @@ class GuidesDraw(object):
                                             horizontal_position);
             last_horizontal_position = horizontal_position;
 
+    def draw_vertical_fold_line(self,
+            vertical,
+            horizontal_start,
+            horizontal_stop):
+        start = self.guides.get_coordinate(vertical, horizontal_start);
+        stop = self.guides.get_coordinate(vertical, horizontal_stop);
+        self.drawing.dwg.add(self.drawing.dwg.line(
+                start,
+                stop,
+                stroke=self.drawing.fold_color,
+                stroke_width=self.drawing.fold_width));
+
+    def draw_horizontal_fold_line(self,
+            horizontal,
+            vertical_start,
+            vertical_stop):
+        start = self.guides.get_coordinate(vertical_start, horizontal);
+        stop = self.guides.get_coordinate(vertical_stop, horizontal);
+        self.drawing.dwg.add(self.drawing.dwg.line(
+                start,
+                stop,
+                stroke=self.drawing.fold_color,
+                stroke_width=self.drawing.fold_width));
+
     def draw_vertical_cut_line(self,
             vertical,
             horizontal_start,
