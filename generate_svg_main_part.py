@@ -14,20 +14,20 @@ phone_depth = 7;
 
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # margin
-                        height - thickness,
-                        thickness,  # consumed by the folding
+                        height - thickness,  # this part goes inside so we remove thinkness
+                        thickness/2, thickness/2,  # consumed by the folding
                         width/2, width/2,
-                        thickness,  # consumed by the folding
+                        thickness/2, thickness/2,  # consumed by the folding
                         height,
-                        thickness,  # consumed by the folding
+                        thickness/2, thickness/2,  # consumed by the folding
                         width/2, width/2,
-                        thickness,  # consumed by the folding
+                        thickness/2, thickness/2,  # consumed by the folding
                         height];
 horizontal_guide_list = [ 10,  # margin
                         40,  # rabat
-                        thickness,  # consumed by the folding
+                        thickness/2, thickness/2,  # consumed by the folding
                         height + thickness,
-                        thickness,  # consumed by the folding
+                        thickness/2, thickness/2,  # consumed by the folding
                         phone_depth,
                         focal/2, focal/2,
                         depth];
@@ -40,16 +40,16 @@ drawing = lazercad.Drawing('goggle.svg');
 guide_draw = lazercad.GuidesDraw(drawing, guides);
 guide_draw.draw_guides();
 # define some helpers const to ease the reding of the code.
-h_base = 8;  # horizontal guide number of the base
-h_contour = 5;  # horizontal guide number
+h_base = 10;  # horizontal guide number of the base
+h_contour = 7;  # horizontal guide number
 h_top = 0;  # horizontal guide number
-h_lens = 6;  # horizontal guide number of the lenses plane
+h_lens = 9;  # horizontal guide number of the lenses plane
 v_base = 0;  # vertical guide number
-v_left = 2;  # vertical guide number
-v_right = 4;  # vertical guide number
-v_last = 11;  # vertical guide number
-v_left_top = 7;  # vertical guide number
-v_right_top = 10;  # vertical guide number
+v_left = 3;  # vertical guide number
+v_right = 5;  # vertical guide number
+v_left_top = 10;  # vertical guide number
+v_right_top = 12;  # vertical guide number
+v_last = 15;  # vertical guide number
 # draw the vertical cutting lines
 guide_draw.draw_vertical_cut_line(v_base, h_contour, h_base);
 guide_draw.draw_vertical_cut_line(v_left, h_contour, h_top);
