@@ -78,8 +78,14 @@ guide_draw.draw_horizontal_centered_hole(h_lens, v_right_top, v_last, 20, thickn
 guide_draw.draw_vertical_centered_hole(v_left+1, h_contour, h_contour+1, 10, thickness);
 guide_draw.draw_vertical_centered_hole(v_left_top+1, h_contour, h_contour+2, 20, thickness);
 # draw the horizontal folding lines
-guide_draw.draw_horizontal_fold_line(h_fold_1,  v_left, v_right);
-guide_draw.draw_horizontal_fold_line(h_fold_2,  v_left, v_right);
+guide_draw.draw_horizontal_fold_line(h_fold_1, v_left, v_right);
+guide_draw.draw_horizontal_fold_line(h_fold_2, v_left, v_right);
+# draw the vertical folding lines
+guide_draw.draw_vertical_fold_line(v_left - 1, h_base, h_contour);
+guide_draw.draw_vertical_fold_line(v_right + 1, h_base, h_contour);
+guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
+guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
+
 # save the drawing as SVG
 drawing.save();
 print "goggle.svg created or updated"
