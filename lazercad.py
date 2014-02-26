@@ -184,7 +184,8 @@ class GuidesDraw(object):
 
         (x1, y) = self.guides.get_coordinate(vertical_start, horizontal);
         (x2, y) = self.guides.get_coordinate(vertical_stop, horizontal);
-        x = (x1+x2-length)/2;
+        x = (x1+x2-length)/2.;
+        y = y - thickness/2.;
         self.drawing.dwg.add(self.drawing.dwg.rect(
                 insert=(x, y),
                 size=(length, thickness),
