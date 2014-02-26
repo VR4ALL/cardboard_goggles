@@ -195,6 +195,26 @@ class GuidesDraw(object):
                 fill='white',
                 stroke_width=self.drawing.cut_width));
 
+    def draw_vertical_centered_hole(self,
+            vertical,
+            horizontal_start,
+            horizontal_stop,
+            length,
+            thickness):
+
+        (x, y1) = self.guides.get_coordinate(vertical, horizontal_start);
+        (x, y2) = self.guides.get_coordinate(vertical, horizontal_stop);
+        y = (y1+y2-length)/2.;
+        x = x - thickness/2.;
+        self.drawing.dwg.add(self.drawing.dwg.rect(
+                insert=(x, y),
+                size=(thickness, length),
+                rx=None, 
+                ry=None,
+                stroke=self.drawing.cut_color,
+                fill='white',
+                stroke_width=self.drawing.cut_width));
+
 
 """
 

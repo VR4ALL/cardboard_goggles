@@ -73,6 +73,8 @@ guide_draw.draw_horizontal_centered_hole(h_lens, v_right, v_left_top, 20, thickn
 guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top, v_left_top+1, 20, thickness);
 guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top+1, v_right_top, 20, thickness);
 guide_draw.draw_horizontal_centered_hole(h_lens, v_right_top, v_last, 20, thickness);
+guide_draw.draw_vertical_centered_hole(v_left+1, h_contour, h_contour+1, 10, thickness);
+guide_draw.draw_vertical_centered_hole(v_left_top+1, h_contour, h_contour+2, 20, thickness);
 # save the drawing as SVG
 drawing.save();
 print "goggle.svg created or updated"
