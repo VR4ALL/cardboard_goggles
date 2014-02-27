@@ -92,12 +92,16 @@ guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
 
 # LENS SUPORT
+# draw the horizontal cutting lines
 guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_left_top, v_forhead, holes, thickness);
 guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_forhead, v_right_top, holes, thickness);
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+1, v_left_top, v_forhead, holes, -thickness);
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+1, v_forhead, v_right_top, holes, -thickness);
+# draw the vertical cutting lines
 guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+1, h_fold_1-1, holes, -thickness);
 guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+1, h_fold_1-1, holes, thickness);
+# draw the hole
+guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+1, h_fold_1-1, holes, thickness);
 
 # save the drawing as SVG
 drawing.save();
