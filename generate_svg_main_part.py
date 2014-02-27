@@ -11,6 +11,7 @@ width = 135;  # width of the goggles and the phone
 focal = 40;  # focal distance : distance between the lenses and the screen
 depth = 40;  # depth of the goggles.
 phone_depth = 7;
+holes = 20;
 
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # margin
@@ -48,10 +49,14 @@ h_fold_2 = 2; # horizontal guide number
 h_top = 0;  # horizontal guide number
 v_base = 0;  # vertical guide number
 v_left = 3;  # vertical guide number
+v_nose = 4;  # vertical guide number in front of the nose
 v_right = 5;  # vertical guide number
 v_left_top = 10;  # vertical guide number
+v_forhead =11; # vertical guide number in front of forhead
 v_right_top = 12;  # vertical guide number
 v_last = 15;  # vertical guide number
+
+# MAIN
 # draw the vertical cutting lines
 guide_draw.draw_vertical_cut_line(v_base, h_contour, h_base);
 guide_draw.draw_vertical_cut_line(v_left, h_contour, h_top);
@@ -68,15 +73,15 @@ guide_draw.draw_horizontal_cut_line(h_base, v_right, v_left_top);
 guide_draw.draw_horizontal_cut_line(h_base, v_left_top, v_right_top);
 guide_draw.draw_horizontal_cut_line(h_base, v_right_top, v_last);
 # draw the holes
-guide_draw.draw_horizontal_centered_hole(h_lens, v_base, v_left, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_left, v_left+1, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_left+1, v_right, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_right, v_left_top, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top, v_left_top+1, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top+1, v_right_top, 20, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_right_top, v_last, 20, thickness);
-guide_draw.draw_vertical_centered_hole(v_left+1, h_contour, h_contour+1, 10, thickness);
-guide_draw.draw_vertical_centered_hole(v_left_top+1, h_contour, h_contour+2, 20, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_base, v_left, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_left, v_nose, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_nose, v_right, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_right, v_left_top, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top, v_forhead, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_forhead, v_right_top, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_right_top, v_last, holes, thickness);
+guide_draw.draw_vertical_centered_hole(v_nose, h_contour, h_contour+1, holes/2., thickness);
+guide_draw.draw_vertical_centered_hole(v_forhead, h_contour, h_contour+2, holes, thickness);
 # draw the horizontal folding lines
 guide_draw.draw_horizontal_fold_line(h_fold_1, v_left, v_right);
 guide_draw.draw_horizontal_fold_line(h_fold_2, v_left, v_right);
@@ -85,6 +90,14 @@ guide_draw.draw_vertical_fold_line(v_left - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right + 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
+
+# LENS SUPORT
+guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_left_top, v_forhead, holes, thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_forhead, v_right_top, holes, thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_2+1, v_left_top, v_forhead, holes, -thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_2+1, v_forhead, v_right_top, holes, -thickness);
+guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+1, h_fold_1-1, holes, -thickness);
+guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+1, h_fold_1-1, holes, thickness);
 
 # save the drawing as SVG
 drawing.save();

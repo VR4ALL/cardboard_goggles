@@ -93,14 +93,14 @@ class Drawing(object):
                 fill='white',
                 stroke_width=self.cut_width));
 
-    def add_cut_line(self, x1, y1, x2, y2):
+    def draw_cut_line(self, x1, y1, x2, y2):
         self.dwg.add(self.dwg.line(
                 (x1, y1),
                 (x2, y2),
                 stroke=self.cut_color,
                 stroke_width=self.cut_width));
 
-    def add_fold_line(self, x1, y1, x2, y2):
+    def draw_fold_line(self, x1, y1, x2, y2):
         self.dwg.add(self.dwg.line(
                 (x1, y1),
                 (x2, y2),
@@ -239,6 +239,41 @@ class GuidesDraw(object):
                 fill='white',
                 stroke_width=self.drawing.cut_width));
 
+    def draw_horizontal_centered_crenau(self,
+            horizontal,
+            vertical_start,
+            vertical_stop,
+            length,
+            thickness):
+        (x1, y) = self.guides.get_coordinate(vertical_start, horizontal);
+        (x2, y) = self.guides.get_coordinate(vertical_stop, horizontal);
+        x_crenau_start = (x1+x2-length)/2.;
+        x_crenau_stop = x_crenau_start + length;
+        y_crenau = y + thickness;
+        drw = self.drawing;
+        drw.draw_cut_line(x1, y, x_crenau_start, y);
+        drw.draw_cut_line(x_crenau_start, y, x_crenau_start, y_crenau);
+        drw.draw_cut_line(x_crenau_start, y_crenau, x_crenau_stop, y_crenau);
+        drw.draw_cut_line(x_crenau_stop, y_crenau, x_crenau_stop, y);
+        drw.draw_cut_line(x_crenau_stop, y, x2, y);
+
+    def draw_vertical_centered_crenau(self,
+            vertical,
+            horizontal_start,
+            horizontal_stop,
+            length,
+            thickness):
+        (x, y1) = self.guides.get_coordinate(vertical, horizontal_start);
+        (x, y2) = self.guides.get_coordinate(vertical, horizontal_stop);
+        y_crenau_start = (y1+y2-length)/2.;
+        y_crenau_stop = y_crenau_start + length;
+        x_crenau = x + thickness;
+        drw = self.drawing;
+        drw.draw_cut_line(x, y1, x, y_crenau_start);
+        drw.draw_cut_line(x, y_crenau_start, x_crenau, y_crenau_start);
+        drw.draw_cut_line(x_crenau, y_crenau_start, x_crenau, y_crenau_stop);
+        drw.draw_cut_line(x_crenau, y_crenau_stop, x, y_crenau_stop);
+        drw.draw_cut_line(x, y_crenau_stop, x, y2);
 
 """
 
