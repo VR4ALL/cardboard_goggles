@@ -7,7 +7,7 @@ import lazercad
 # define the parametric const
 thickness = 3;  # cardboard thinkness
 height = 75;  # height of the goggles and the phone
-width = 135;  # width of the goggles and the phone
+width = 130;  # width of the goggles and the phone
 focal = 40;  # focal distance : distance between the lenses and the screen
 depth = 40;  # depth of the goggles.
 phone_depth = 7;
@@ -16,21 +16,21 @@ holes = 20;
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # margin
                         height - thickness,  # this part goes inside so we remove thinkness
-                        thickness/2, thickness/2,  # consumed by the folding
-                        width/2, width/2,
-                        thickness/2, thickness/2,  # consumed by the folding
+                        thickness/2., thickness/2.,  # consumed by the folding
+                        width/2., width/2.,
+                        thickness/2., thickness/2.,  # consumed by the folding
                         height,
-                        thickness/2, thickness/2,  # consumed by the folding
-                        width/2, width/2,
-                        thickness/2, thickness/2,  # consumed by the folding
+                        thickness/2., thickness/2.,  # consumed by the folding
+                        width/2., width/2.,
+                        thickness/2., thickness/2.,  # consumed by the folding
                         height];
 horizontal_guide_list = [ 10,  # margin
                         40,  # rabat
-                        thickness/2, thickness/2,  # consumed by the folding
+                        thickness/2., thickness/2.,  # consumed by the folding
                         height + thickness,
-                        thickness/2, thickness/2,  # consumed by the folding
+                        thickness/2., thickness/2.,  # consumed by the folding
                         phone_depth,
-                        focal/2, focal/2,
+                        focal/2., focal/2.,
                         depth];
 # instanciate a guide object to calculate absolute guide positions
 guides = lazercad.GuideList(vertical_guide_list, horizontal_guide_list);
