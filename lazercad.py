@@ -93,7 +93,7 @@ class Drawing(object):
                 fill='white',
                 stroke_width=self.cut_width));
 
-    def add_vertical_hole(self, x, y, length, thickness):
+    def draw_vertical_hole(self, x, y, length, thickness):
         self.dwg.add(self.dwg.rect(
                 insert=(x, y),
                 size=(thickness, length),

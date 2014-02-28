@@ -3,6 +3,7 @@
 # in way to ease the creation of cardboard goggles.
 
 import lazercad
+import math
 
 # define the parametric const
 thickness = 3;  # cardboard thinkness
@@ -12,7 +13,7 @@ focal = 40;  # focal distance : distance between the lenses and the screen
 depth = 40;  # depth of the goggles.
 phone_depth = 7;  # thinkness otf the phone
 holes = 20;  # lenght oh the holes used to fix the lenses plane.
-lenses = 35;  # lenses diameters
+d_lenses = 35;  # lenses diameters
 eyes_distance = 65;  # distance between centers of lenses.
 camera_hole_width = 10;
 camera_hole_height = 40;
@@ -108,6 +109,32 @@ x = x - camera_hole_left_pos;
 y = y - camera_hole_height/2.;
 drawing.draw_rounded_hole(x, y, camera_hole_width, camera_hole_height);
 
+def lense_hole(drawing, x, y,d):
+    support_number = 8;
+    normal_radius = d/2.;
+    small_radius = d/2.-2;
+    cut_radius = d/2.+5;
+    ratio = 0.1;
+    last_radius = small_radius;
+    last_x = x + last_radius;
+    last_y = y;
+    for i in range(0, 362):
+        if (i%(360/support_number)>(360/support_number)*ratio):
+            radius = normal_radius;
+        else:
+            radius = small_radius;
+        if (last_radius != radius):
+            xi = x + cut_radius * math.cos(2.*math.pi/360*i);
+            yi = y + cut_radius * math.sin(2.*math.pi/360*i);
+            drawing.draw_cut_line(last_x, last_y, xi, yi);
+        else:
+            xi = x + radius * math.cos(2.*math.pi/360*i);
+            yi = y + radius * math.sin(2.*math.pi/360*i);
+        drawing.draw_cut_line(last_x, last_y, xi, yi);
+        last_x = xi;
+        last_y = yi;
+        last_radius = radius;
+
 # LENS SUPORT
 # draw the horizontal cutting lines
 guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_left_top, v_forhead, holes, thickness);
@@ -119,6 +146,10 @@ guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, hol
 guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+2, h_fold_1-1, holes, thickness);
 # draw the hole
 guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+2, h_fold_1-1, holes, thickness);
+(x, y) = guides.get_coordinate(v_left_top+1, h_lenses);
+lense_hole(drawing, x, y, d_lenses);
+(x, y) = guides.get_coordinate(v_right_top-1, h_lenses);
+lense_hole(drawing, x, y, d_lenses);
 
 # save the drawing as SVG
 drawing.save();
