@@ -13,6 +13,10 @@ depth = 40;  # depth of the goggles.
 phone_depth = 7;  # thinkness otf the phone
 holes = 20;  # lenght oh the holes used to fix the lenses plane.
 lenses = 35;  # lenses diameters
+eyes_distance = 65;  # distance between centers of lenses.
+camera_hole_width = 10;
+camera_hole_height = 40;
+camera_hole_left_pos = 20;
 
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # margin
@@ -22,7 +26,8 @@ vertical_guide_list = [ 10,  # margin
                         thickness/2., thickness/2.,  # consumed by the folding
                         height,
                         thickness/2., thickness/2.,  # consumed by the folding
-                        width/2., width/2.,
+                        (width - eyes_distance)/2., eyes_distance/2.,
+                        eyes_distance/2., (width - eyes_distance)/2.,
                         thickness/2., thickness/2.,  # consumed by the folding
                         height];
 horizontal_guide_list = [ 10,  # margin
@@ -40,17 +45,17 @@ h_base = 12;  # horizontal guide number of the base
 h_lens = 11;  # horizontal guide number of the lenses plane
 h_contour = 9;  # horizontal guide number
 h_fold_1 = 7;  # horizontal guide number
-h_lenses = 3;  # horizontal giude number of lenses center
+h_lenses = 5;  # horizontal giude number of lenses center
 h_fold_2 = 2; # horizontal guide number
 h_top = 0;  # horizontal guide number
 v_base = 0;  # vertical guide number
 v_left = 2;  # vertical guide number
 v_nose = 4;  # vertical guide number in front of the nose
-v_right = 6;  # vertical guide number
+v_right = 7;  # vertical guide number
 v_left_top = 10;  # vertical guide number
-v_forhead =11; # vertical guide number in front of forhead
-v_right_top = 12;  # vertical guide number
-v_last = 15;  # vertical guide number
+v_forhead =12; # vertical guide number in front of forhead
+v_right_top = 15;  # vertical guide number
+v_last = 17;  # vertical guide number
 
 # instanciate a guide object to calculate absolute guide positions
 guides = lazercad.GuideList(vertical_guide_list, horizontal_guide_list);
@@ -95,6 +100,11 @@ guide_draw.draw_vertical_fold_line(v_left, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
+# add the hole for the camera
+(x, y) = guides.get_coordinate(v_right, h_lenses);
+x = x - camera_hole_left_pos;
+y = y - camera_hole_height/2.;
+drawing.draw_rounded_hole(x, y, camera_hole_width, camera_hole_height);
 
 # LENS SUPORT
 # draw the horizontal cutting lines

@@ -83,6 +83,16 @@ class Drawing(object):
                 fill='white',
                 stroke_width=self.cut_width));
 
+    def draw_rounded_hole(self, x, y, width, height):
+        self.dwg.add(self.dwg.rect(
+                insert=(x, y),
+                size=(width, height),
+                rx=5, 
+                ry=5,
+                stroke=self.cut_color,
+                fill='white',
+                stroke_width=self.cut_width));
+
     def add_vertical_hole(self, x, y, length, thickness):
         self.dwg.add(self.dwg.rect(
                 insert=(x, y),
