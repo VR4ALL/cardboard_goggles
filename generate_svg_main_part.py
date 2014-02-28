@@ -22,6 +22,7 @@ camera_hole_left_pos = 20;
 vertical_guide_list = [ 10,  # margin
                         height - thickness,  # this part goes inside so we remove thinkness
                         thickness/2., thickness/2.,  # consumed by the folding
+                        thickness,  # we add thinckness of cardboard, for corect alignement
                         width/2., width/2.,
                         thickness/2., thickness/2.,  # consumed by the folding
                         height,
@@ -41,21 +42,22 @@ horizontal_guide_list = [ 10,  # margin
                         depth];
 
 # define some helpers const to ease the reding of the code.
-h_base = 12;  # horizontal guide number of the base
-h_lens = 11;  # horizontal guide number of the lenses plane
-h_contour = 9;  # horizontal guide number
-h_fold_1 = 7;  # horizontal guide number
-h_lenses = 5;  # horizontal giude number of lenses center
-h_fold_2 = 2; # horizontal guide number
 h_top = 0;  # horizontal guide number
+h_fold_2 = h_top+2; # horizontal guide number
+h_lenses = h_fold_2+3;  # horizontal giude number of lenses center
+h_fold_1 = h_lenses+2;  # horizontal guide number
+h_contour = h_fold_1+2;  # horizontal guide number
+h_lens = h_contour + 2;  # horizontal guide number of the lenses plane
+h_base = h_lens + 1;  # horizontal guide number of the base
+
 v_base = 0;  # vertical guide number
-v_left = 2;  # vertical guide number
-v_nose = 4;  # vertical guide number in front of the nose
-v_right = 7;  # vertical guide number
-v_left_top = 10;  # vertical guide number
-v_forhead =12; # vertical guide number in front of forhead
-v_right_top = 15;  # vertical guide number
-v_last = 17;  # vertical guide number
+v_left = v_base + 2;  # vertical guide number
+v_nose = v_left + 3;  # vertical guide number in front of the nose
+v_right = v_nose + 3;  # vertical guide number
+v_left_top = v_right + 3;  # vertical guide number
+v_forhead = v_left_top + 2; # vertical guide number in front of forhead
+v_right_top = v_forhead + 2;  # vertical guide number
+v_last = v_right_top + 3;  # vertical guide number
 
 # instanciate a guide object to calculate absolute guide positions
 guides = lazercad.GuideList(vertical_guide_list, horizontal_guide_list);
