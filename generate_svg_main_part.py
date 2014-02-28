@@ -20,8 +20,10 @@ camera_hole_height = 40;
 camera_hole_left_pos = 20;
 
 # place guide relative position in lists
-vertical_guide_list = [ 10,  # margin
-                        height - thickness,  # this part goes inside so we remove thinkness
+vertical_guide_list = [ 10,  # page margin
+                        thickness,  # this part goes inside so we remove thinkness
+                        focal/2., focal/2.,  # needed for nose part
+                        height - thickness - focal, # we remove thinkness and focal
                         thickness/2., thickness/2.,  # consumed by the folding
                         thickness,  # we add thinckness of cardboard, for corect alignement
                         width/2., width/2.,
@@ -51,9 +53,9 @@ h_contour = h_fold_1+2;  # horizontal guide number
 h_lens = h_contour + 2;  # horizontal guide number of the lenses plane
 h_base = h_lens + 1;  # horizontal guide number of the base
 
-v_base = 0;  # vertical guide number
-v_left = v_base + 2;  # vertical guide number
-v_nose = v_left + 3;  # vertical guide number in front of the nose
+v_base = 1;  # vertical guide number
+v_left = v_base + 3;  # vertical guide number
+v_nose = v_left + 4;  # vertical guide number in front of the nose
 v_right = v_nose + 3;  # vertical guide number
 v_left_top = v_right + 3;  # vertical guide number
 v_forhead = v_left_top + 2; # vertical guide number in front of forhead
@@ -76,9 +78,9 @@ guide_draw.draw_vertical_cut_line(v_left, h_contour, h_top);
 guide_draw.draw_vertical_cut_line(v_right, h_contour, h_top);
 guide_draw.draw_vertical_cut_line(v_last, h_contour, h_base);
 # draw the upper horizontal cutting lines
-guide_draw.draw_horizontal_cut_line(h_contour, v_base, v_left+1);
+guide_draw.draw_horizontal_cut_line(h_contour, v_base, v_left+2);
 guide_draw.draw_horizontal_cut_line(h_top, v_left, v_right);
-guide_draw.draw_horizontal_cut_line(h_contour, v_right-1, v_last);
+guide_draw.draw_horizontal_cut_line(h_contour, v_right-2, v_last);
 # draw the base horizontal cutting lines
 guide_draw.draw_horizontal_cut_line(h_base, v_base, v_left)
 guide_draw.draw_horizontal_cut_line(h_base, v_left, v_right);
@@ -99,8 +101,8 @@ guide_draw.draw_vertical_centered_hole(v_forhead, h_contour, h_contour+2, holes,
 guide_draw.draw_horizontal_fold_line(h_fold_1, v_left, v_right);
 guide_draw.draw_horizontal_fold_line(h_fold_2, v_left, v_right);
 # draw the vertical folding lines
-guide_draw.draw_vertical_fold_line(v_left, h_base, h_contour);
-guide_draw.draw_vertical_fold_line(v_right, h_base, h_contour);
+guide_draw.draw_vertical_fold_line(v_left + 1, h_base, h_contour);
+guide_draw.draw_vertical_fold_line(v_right - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
 # add the hole for the camera
