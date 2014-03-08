@@ -164,6 +164,11 @@ guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_base+1, v_base+3, holes
 guide_draw.draw_vertical_centered_crenau(v_base+1, h_fold_2+2, h_lenses+1, holes, -thickness);
 guide_draw.draw_vertical_cut_line(v_base+3, h_fold_2+2, h_fold_1-1);
 
+drawing.draw_cut_path("m 89.5,222 c 0,0 20,-38.5 46.16202,-38.24895 2.051,-11.79839 4.31823,-21.70893 13.83798,-21.75105 9.51975,-0.0421 11.88326,8.62957 13.6988,21.64992 "
+                     + "C 191.38562,183.5 209.5,222 209.5,222");
+drawing.draw_cut_path("m 290.5,222 c 0,0 10.16559,-38.16667 60,-38.16668 49.83333,0 60,38.16668 60,38.16668");
+drawing.draw_cut_path("m 337.41667,130.99996 c 2.12499,-14.54167 0.39944,-28.78182 13.08333,-28.74996 12.68389,0.0319 10.49814,14.31504 13.58333,28.74996");
+drawing.draw_cut_path("m 11.5,102.25 c 0,0 10.995974,0.36746 15.285955,8.5143 C 30.673958,118.14776 31.5,131 31.5,131");
 
 # save the drawing as SVG
 drawing.save();

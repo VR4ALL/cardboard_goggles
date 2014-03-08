@@ -117,6 +117,14 @@ class Drawing(object):
                 stroke=self.fold_color,
                 stroke_width=self.fold_width));
 
+    def draw_cut_path(self, path_string):
+        path = self.dwg.path(
+            d=path_string,
+            stroke=self.cut_color,
+            fill='white',
+            stroke_width=self.cut_width);
+        self.dwg.add(path);
+
     def save(self):
         self.dwg.save();
 
