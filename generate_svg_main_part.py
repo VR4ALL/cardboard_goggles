@@ -39,8 +39,9 @@ horizontal_guide_list = [ 10,  # margin
                         40,  # rabat
                         thickness/2., thickness/2.,  # consumed by the folding
                         thickness,  # we add thinckness of cardboard, for corect alignement
+                        height/2.,  # to draw the middle,
+                        height/2. - nose_length,
                         nose_length,
-                        height/2. - nose_length, height/2.,  # to draw the middle,
                         thickness/2., thickness/2.,  # consumed by the folding
                         phone_depth,
                         focal/2., focal/2.,
@@ -49,8 +50,8 @@ horizontal_guide_list = [ 10,  # margin
 # define some helpers const to ease the reding of the code.
 h_top = 0;  # horizontal guide number
 h_fold_2 = h_top+2; # horizontal guide number
-h_lenses = h_fold_2+4;  # horizontal giude number of lenses center
-h_fold_1 = h_lenses+2;  # horizontal guide number
+h_lenses = h_fold_2+3;  # horizontal giude number of lenses center
+h_fold_1 = h_lenses+3;  # horizontal guide number
 h_contour = h_fold_1+2;  # horizontal guide number
 h_lens = h_contour + 2;  # horizontal guide number of the lenses plane
 h_base = h_lens + 1;  # horizontal guide number of the base
@@ -148,8 +149,8 @@ guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_forhead, v_right_top, h
 # draw the vertical cutting lines
 guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, holes, -thickness*2.3);
 guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+2, h_fold_1-1, holes, thickness);
-# draw the hole
-guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+2, h_fold_1-1, holes, thickness);
+# draw the holes
+guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+2, h_lenses+1, holes, thickness);
 (x, y) = guides.get_coordinate(v_left_top+1, h_lenses);
 lense_hole(drawing, x, y, d_lenses);
 (x, y) = guides.get_coordinate(v_right_top-1, h_lenses);
@@ -157,10 +158,10 @@ lense_hole(drawing, x, y, d_lenses);
 
 # NOSE, Eyes separator
 # draw the horizontal cutting lines
-guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_base, v_base+2, holes, thickness);
-guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_base+1, v_base+2, holes/2., -thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_base+1, v_base+2, holes/2., thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_base, v_base+2, holes, -thickness);
 # draw the vertical cutting lines
-guide_draw.draw_vertical_centered_crenau(v_base, h_fold_2+2, h_fold_1-1, holes, -thickness);
+guide_draw.draw_vertical_centered_crenau(v_base, h_fold_2+2, h_lenses+1, holes, -thickness);
 guide_draw.draw_vertical_cut_line(v_base+2, h_fold_2+2, h_fold_1-1);
 
 
