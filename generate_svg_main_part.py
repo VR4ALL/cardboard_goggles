@@ -22,7 +22,7 @@ nose_length = 20;
 
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # page margin
-                        thickness,  # this part goes inside so we remove thinkness
+                        thickness/2., # we remove half thickness to the nose part, cause holes the maintain the lenses plate are centered
                         nose_length, focal - nose_length,  # needed for nose part
                         height - thickness - focal, # we remove thinkness and focal
                         thickness/2., thickness/2.,  # consumed by the folding
@@ -56,8 +56,8 @@ h_contour = h_fold_1+2;  # horizontal guide number
 h_lens = h_contour + 2;  # horizontal guide number of the lenses plane
 h_base = h_lens + 1;  # horizontal guide number of the base
 
-v_base = 1;  # vertical guide number
-v_left = v_base + 3;  # vertical guide number
+v_base = 0;  # vertical guide number
+v_left = v_base + 4;  # vertical guide number
 v_nose = v_left + 4;  # vertical guide number in front of the nose
 v_right = v_nose + 3;  # vertical guide number
 v_left_top = v_right + 3;  # vertical guide number
@@ -118,7 +118,7 @@ def lense_hole(drawing, x, y,d):
     support_number = 8;
     normal_radius = d/2.;
     small_radius = d/2.-2;
-    cut_radius = d/2.+5;
+    cut_radius = d/2.+3;
     ratio = 0.2;
     last_radius = small_radius;
     last_x = x + last_radius;
@@ -158,11 +158,11 @@ lense_hole(drawing, x, y, d_lenses);
 
 # NOSE, Eyes separator
 # draw the horizontal cutting lines
-guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_base+1, v_base+2, holes/2., thickness);
-guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_base, v_base+2, holes, -thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_base+2, v_base+3, holes/2., thickness);
+guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_base+1, v_base+3, holes, -thickness);
 # draw the vertical cutting lines
-guide_draw.draw_vertical_centered_crenau(v_base, h_fold_2+2, h_lenses+1, holes, -thickness);
-guide_draw.draw_vertical_cut_line(v_base+2, h_fold_2+2, h_fold_1-1);
+guide_draw.draw_vertical_centered_crenau(v_base+1, h_fold_2+2, h_lenses+1, holes, -thickness);
+guide_draw.draw_vertical_cut_line(v_base+3, h_fold_2+2, h_fold_1-1);
 
 
 # save the drawing as SVG
