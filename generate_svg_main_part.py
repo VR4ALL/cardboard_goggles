@@ -91,8 +91,8 @@ guide_draw.draw_horizontal_cut_line(h_base, v_left_top, v_right_top);
 guide_draw.draw_horizontal_cut_line(h_base, v_right_top, v_last);
 # draw the holes
 guide_draw.draw_horizontal_centered_hole(h_lens, v_base, v_left, holes, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_left, v_nose, holes, thickness);
-guide_draw.draw_horizontal_centered_hole(h_lens, v_nose, v_right, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_nose-1, v_nose, holes, thickness);
+guide_draw.draw_horizontal_centered_hole(h_lens, v_nose, v_nose+1, holes, thickness);
 guide_draw.draw_horizontal_centered_hole(h_lens, v_right, v_left_top, holes, thickness);
 guide_draw.draw_horizontal_centered_hole(h_lens, v_left_top, v_forhead, holes, thickness);
 guide_draw.draw_horizontal_centered_hole(h_lens, v_forhead, v_right_top, holes, thickness);
