@@ -17,7 +17,7 @@ d_lenses = 24.5;  # lenses diameters
 eyes_distance = 60;  # distance between centers of lenses.
 camera_hole_width = 13;
 camera_hole_height = 40;
-camera_hole_left_pos = 20;
+camera_hole_left_pos = 10;
 nose_length = 20;
 
 # place guide relative position in lists
@@ -108,8 +108,8 @@ guide_draw.draw_vertical_fold_line(v_right - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_left_top - 1, h_base, h_contour);
 guide_draw.draw_vertical_fold_line(v_right_top + 1, h_base, h_contour);
 # add the hole for the camera
-(x, y) = guides.get_coordinate(v_right, h_lenses);
-x = x - camera_hole_left_pos;
+(x, y) = guides.get_coordinate(v_left, h_lenses);
+x = x + camera_hole_left_pos;
 y = y - camera_hole_height/2.;
 drawing.draw_rounded_hole(x, y, camera_hole_width, camera_hole_height);
 
@@ -146,8 +146,8 @@ guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_forhead, v_right_top, h
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_left_top, v_forhead, holes, -thickness);
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_forhead, v_right_top, holes, -thickness);
 # draw the vertical cutting lines
-guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, holes, -thickness);
-guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+2, h_fold_1-1, holes, thickness*2.);
+guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, holes, -thickness*2.3);
+guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+2, h_fold_1-1, holes, thickness);
 # draw the hole
 guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+2, h_fold_1-1, holes, thickness);
 (x, y) = guides.get_coordinate(v_left_top+1, h_lenses);
