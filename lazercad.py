@@ -334,6 +334,9 @@ if __name__ == '__main__':
     guide_draw.draw_horizontal_cut_line(h_top, v_left, v_right);
     guide_draw.draw_horizontal_cut_line(h_bottom, v_left, v_right);
 
+    guide_draw.draw_vertical_fold_line(v_left+1, h_bottom, h_top);
+    guide_draw.draw_vertical_fold_line(v_left+2, h_bottom, h_top);
+
     drawing.save();
 
     print "test.svg created or updated"

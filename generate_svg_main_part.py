@@ -8,14 +8,14 @@ import math
 # define the parametric const
 thickness = 3;  # cardboard thinkness
 height = 75;  # height of the goggles and the phone
-width = 130;  # width of the goggles and the phone
+width = 120;  # width of the goggles and the phone
 focal = 40;  # focal distance : distance between the lenses and the screen
 depth = 40;  # depth of the goggles.
-phone_depth = 7;  # thinkness otf the phone
+phone_depth = 8;  # thinkness otf the phone
 holes = 20;  # lenght oh the holes used to fix the lenses plane.
-d_lenses = 35;  # lenses diameters
-eyes_distance = 65;  # distance between centers of lenses.
-camera_hole_width = 10;
+d_lenses = 24.5;  # lenses diameters
+eyes_distance = 60;  # distance between centers of lenses.
+camera_hole_width = 13;
 camera_hole_height = 40;
 camera_hole_left_pos = 20;
 nose_length = 20;
@@ -118,7 +118,7 @@ def lense_hole(drawing, x, y,d):
     normal_radius = d/2.;
     small_radius = d/2.-2;
     cut_radius = d/2.+5;
-    ratio = 0.1;
+    ratio = 0.2;
     last_radius = small_radius;
     last_x = x + last_radius;
     last_y = y;
