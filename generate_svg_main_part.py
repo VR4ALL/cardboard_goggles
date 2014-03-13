@@ -6,9 +6,10 @@ import lazercad
 import math
 
 # define the parametric const
-thickness = 3;  # cardboard thinkness
-height = 75;  # height of the goggles and the phone
-width = 120;  # width of the goggles and the phone
+thickness = 2.8;  # cardboard thinkness
+folding = 2;  # folding line
+height = 72;  # height of the goggles and the phone
+width = 125;  # width of the goggles and the phone
 focal = 40;  # focal distance : distance between the lenses and the screen
 depth = 40;  # depth of the goggles.
 phone_depth = 8;  # thinkness otf the phone
@@ -22,27 +23,27 @@ nose_length = 20;
 
 # place guide relative position in lists
 vertical_guide_list = [ 10,  # page margin
-                        thickness/2., # we remove half thickness to the nose part, cause holes the maintain the lenses plate are centered
+                        thickness, # we remove half thickness to the nose part, cause holes the maintain the lenses plate are centered
                         nose_length, focal - nose_length,  # needed for nose part
                         height - thickness - focal, # we remove thinkness and focal
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         thickness,  # we add thinckness of cardboard, for corect alignement
                         width/2., width/2.,
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         height,
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         (width - eyes_distance)/2., eyes_distance/2.,
                         eyes_distance/2., (width - eyes_distance)/2.,
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         height];
 horizontal_guide_list = [ 10,  # margin
                         40,  # rabat
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         thickness,  # we add thinckness of cardboard, for corect alignement
                         height/2.,  # to draw the middle,
                         height/2. - nose_length,
                         nose_length,
-                        thickness/2., thickness/2.,  # consumed by the folding
+                        folding, folding,  # consumed by the folding
                         phone_depth,
                         focal/2., focal/2.,
                         depth];
@@ -147,7 +148,7 @@ guide_draw.draw_horizontal_centered_crenau(h_fold_1-1, v_forhead, v_right_top, h
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_left_top, v_forhead, holes, -thickness);
 guide_draw.draw_horizontal_centered_crenau(h_fold_2+2, v_forhead, v_right_top, holes, -thickness);
 # draw the vertical cutting lines
-guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, holes, -thickness*2.3);
+guide_draw.draw_vertical_centered_crenau(v_left_top, h_fold_2+2, h_fold_1-1, holes, -thickness*2.5);
 guide_draw.draw_vertical_centered_crenau(v_right_top, h_fold_2+2, h_fold_1-1, holes, thickness);
 # draw the holes
 guide_draw.draw_vertical_centered_hole(v_forhead, h_fold_2+2, h_lenses+1, holes, thickness);
