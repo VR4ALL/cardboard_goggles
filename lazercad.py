@@ -41,11 +41,12 @@ class Drawing(object):
         # declare the color needed by the cutting machine
         self.cut_color = svgwrite.rgb(0, 0, 0, '%');
         self.cut_width = 0.05;
-        self.fold_color = svgwrite.rgb(255, 0, 0, '%');
+        self.vertical_fold_color = svgwrite.rgb(255, 0, 0, '%');
+        self.horizontal_fold_color = svgwrite.rgb(0, 0, 255, '%');
         self.fold_width = 0.05;
         self.draw_color = svgwrite.rgb(0, 255, 0, '%');
         self.draw_width = 0.03;
-        self.engrave_color = svgwrite.rgb(0, 0, 255, '%');
+        self.engrave_color = svgwrite.rgb(0, 255, 255, '%');
 
         # dwg is public to allow direct manipulation using svgwrite
         self.dwg = svgwrite.Drawing(filename,
@@ -114,8 +115,8 @@ class Drawing(object):
         self.dwg.add(self.dwg.line(
                 (x1, y1),
                 (x2, y2),
-                stroke=self.fold_color,
-                stroke_width=self.fold_width));
+                stroke=self.vertical_draw_color,
+                stroke_width=self.vertical_fold_width));
 
     def draw_cut_path(self, path_string):
         path = self.dwg.path(
@@ -160,7 +161,7 @@ class GuidesDraw(object):
         self.drawing.dwg.add(self.drawing.dwg.line(
                 start,
                 stop,
-                stroke=self.drawing.fold_color,
+                stroke=self.drawing.vertical_fold_color,
                 stroke_width=self.drawing.fold_width));
 
     def draw_horizontal_fold_line(self,
@@ -172,7 +173,7 @@ class GuidesDraw(object):
         self.drawing.dwg.add(self.drawing.dwg.line(
                 start,
                 stop,
-                stroke=self.drawing.fold_color,
+                stroke=self.drawing.horizontal_fold_color,
                 stroke_width=self.drawing.fold_width));
 
     def draw_vertical_cut_line(self,
